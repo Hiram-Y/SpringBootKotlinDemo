@@ -9,7 +9,7 @@ buildscript {
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
-		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}") //Kotlin全开放插件。Kotlin 里类默认都是final的,如果声明的类需要被继承则需要使用open 关键字来描述类，这个插件就是把Kotlin中的所有类都open打开，可被继承
 	}
 }
 
@@ -41,9 +41,18 @@ repositories {
 
 
 dependencies {
+
+	compile('org.springframework.boot:spring-boot-starter-actuator')//SpringBoot的健康检查监控组件启动器
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')//JPA启动器
+	compile('org.springframework.boot:spring-boot-starter-freemarker')//模板引擎freemarker启动器
 	compile('org.springframework.boot:spring-boot-starter-web')
+
 	compile('com.fasterxml.jackson.module:jackson-module-kotlin')
-	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	compile("org.jetbrains.kotlin:kotlin-reflect")
+	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")//Kotlin基于JRE8的标准库
+	compile("org.jetbrains.kotlin:kotlin-reflect")//Kotlin反射库
+
+	runtime('org.springframework.boot:spring-boot-devtools')//SpringBoot开发者工具，例如：热部署等
+	runtime('mysql:mysql-connector-java')//Java的MySQL连接器库
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
