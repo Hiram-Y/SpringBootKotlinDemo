@@ -1,15 +1,14 @@
 package com.spring.demo
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import com.fasterxml.jackson.annotation.JsonInclude
+import javax.persistence.*
 
-@Entity
+@Entity // 告诉Hibernate依据这个类创建一个表
 @Table(name = "customers")
 class Customers{
 
-    @Id
+    @Id //主键
+    @GeneratedValue(strategy = GenerationType.AUTO) //自增长
     @Column(name = "id")
     var id:Int = 0
 
@@ -23,6 +22,7 @@ class Customers{
     var city : String? = null
 
     @Column(name = "age")
+    @JsonInclude(JsonInclude.Include.ALWAYS)
     var age : Int = 0
 
     @Column(name = "love")
