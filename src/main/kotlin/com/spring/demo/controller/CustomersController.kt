@@ -2,8 +2,10 @@ package com.spring.demo.controller
 
 import com.spring.demo.Customers
 import com.spring.demo.CustomersRepository
+import com.spring.demo.core.JsonResult
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -21,10 +23,12 @@ class CustomersController{
     // 同理还有@PostMapping等。
     // 如果只写@RequestMapping不指明请求方式表示匹配所有类型的请求。
     @GetMapping("/queryAll")
-    fun queryAll():List<Customers>{
+    fun queryAll(): ResponseEntity<JsonResult> {
         val all = customersRepository?.findAll()
 //        logger.info("查询结果：${all.toString()}")
-        return all!!
+
+        return JsonResult(all!!).ok()
+
     }
     @RequestMapping("/addCustomer")
     fun addCustomer(name:String,address:String,city:String,age:Int,love:String):String{
